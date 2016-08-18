@@ -34,7 +34,7 @@ module EasyTranslate
       raw = request.perform_raw
       JSON.parse(raw)['data']['translations'].map do |res|
         raw_translation = res['translatedText']
-        CGI.unescapeHTML(raw_translation)
+        [CGI.unescapeHTML(raw_translation), options.keys.include?(:target) ? nil : res['detectedSourceLanguage']]
       end
     end
 
